@@ -1,6 +1,7 @@
 'use strict';
 
-let secretNumber = Math.trunc(Math.random() * 20) + 1;
+let secretNumber = Math.floor(Math.random() * 20) + 1;
+// console.log(secretNumber)
 let score = 20;
 let highscore = 0;
 
@@ -11,9 +12,10 @@ const displayMessage = function (message) {
 
 document.querySelector('.check').addEventListener('click', function () {
   const guess = Number(document.querySelector('.guess').value);
-  console.log(guess, typeof guess);
+  // console.log(guess, typeof guess);
 
   // When there is no input
+
   if (!guess) {
 
     displayMessage('⛔️ No number!');
@@ -32,14 +34,19 @@ document.querySelector('.check').addEventListener('click', function () {
       document.querySelector('.highscore').textContent = highscore;
     }
 
+
     // When guess is wrong
   } else if (guess !== secretNumber) {
-    if (score > 1) {
+    if (guess < 1 || guess > 20) {
+      displayMessage('numbeer should be between 1 and 20')
+    }
+    else if (score > 1) {
 
       displayMessage(guess > secretNumber ? '📈 Too high!' : '📉 Too low!');
       score--;
       document.querySelector('.score').textContent = score;
-    } else {
+    }
+    else {
 
       displayMessage('💥 You lost the game!');
       document.querySelector('.score').textContent = 0;
